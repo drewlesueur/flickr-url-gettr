@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head></head>
+<body>
+<title>Make a dead simple site</title>
+<h1>Flickr Url Getter</h1>
+<div>Get yoour most recent flickr photo urls. (because flickr is too complicated to do it for you)</div>
+<br  />
+<form id="form" action="edit" method="get">
+  Copy paste the url of your photostream. <input type="text" id="photostream" name="photostream"/>
+  <input type="submit" value="get recent photo urls" />
+</form>
+<script src="thumbs.js"> </script>
+<script>
+Thumbs.addScope({
+  oneword: function (name) {
+    return name.replace(/[^\w]/g, "") 
+  },
+  replace: function (str, what, what2) {
+    return str.replace(what, what2)
+  },
+  split: function (str, str2) {
+    return str.split(str2)
+  },
+  empty: "",
+  save: function (key, val) {
+    return localStorage[key] = val
+  },
+  load: function (key) {
+    return localStorage[key]
+  }, onFlickr: function (fn) {
+    window.jsonFlickrApi = fn 
+  },
+  loop: function (items, fn) {
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i]
+      fn(item, i)
+    } 
+  },
+  concat: function (a, b, c) {
+    return a + b + c; //todo: use var args
+  },
+  slice: function (jsarr, a, b) {
+    return jsarr.slice(a, b)
+  }
+
+})
+</script>
+<script type="text/x-thumbs">
+
+onFlickrId * flickrid
+  flickrId EncodeURIComponent flickrid
+  url $ http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=658104b831aab45aaa5f81bd74896a5b&user_id=$flickrid&format=json
+  script Document.createElement $script
+  script.src url
+  Document.body.appendChild script
+
+addPhoto * title url
+  img Document.createElement $img
+  img.src url
+
+  hr Document.createElement $hr
+  br Document.createElement $br
+
+  a Document.createElement $a
+  a.href $ url
+  a.innerHTML title
+
+  Document.body.appendChild img
+  Document.body.appendChild br
+  Document.body.appendChild a
+  Document.body.appendChild hr
+
+
+
+
+
+  img.src url
+
+  Say url
+
+OnFlickr * stuff
+  photos stuff.photos.photo
+  Say photos
+  photos Slice photos 0 10
+  Loop photos * photo
+    title photo.title
+    secret photo.secret
+    farm photo.farm
+    server photo.server
+    id photo.id
+    idSecret Concat id $_ secret 
+    AddPhoto title $ http://farm$farm.staticflickr.com/$server/$idSecret.jpg
+
+
+
+flickrid Load $flickrid
+
+Say $ The flickr id is $flickrid
+
+If
+  > flickrid
+  > OnFlickrId flickrid
+  > OnFlickrId $37757983@N07
+
+form Document.getElementById $form
+form.onsubmit * e
+  E.preventDefault
+  input Document.getElementById $photostream
+  value input.value
+  Say value
+  value Replace value $http:// empty
+  value Split value $photos/
+  value value.1
+  value Split value $/
+  flickrid value.0
+  Say flickrid
+  Save $flickrid flickrid
+
+
+
+  $ todo: fix something like this in thumbs
+  $ localStorage.flickrid flickrid
+  false
+</script>
+<script>
+Thumbs.runScriptTags()
+</script>
+</body>
+</html>
