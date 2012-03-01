@@ -4,12 +4,16 @@
 <body>
 <title>Make a dead simple site</title>
 <h1>Flickr Url Getter</h1>
-<div>Get yoour most recent flickr photo urls. (because flickr is too complicated to do it for you)</div>
+<div>Get your most recent flickr photo urls. (because flickr is too complicated to do it for you)</div>
 <br  />
 <form id="form" action="edit" method="get">
-  Copy paste the url of your photostream. <input type="text" id="photostream" name="photostream"/>
+  Copy paste the url of your photostream. (go to <a href="http://flickr.com">flickr.com</a>, sign in, and go to your photo stream)
+  <br />
+  <input type="text" id="photostream" name="photostream"/>
   <input type="submit" value="get recent photo urls" />
 </form>
+<a href="http://github.com/drewlesueur/flickr-url-gettr">source</a>
+<br />
 <script src="thumbs.js"> </script>
 <script>
 Thumbs.addScope({
@@ -116,6 +120,5 @@ form.onsubmit * e
 Thumbs.runScriptTags()
 </script>
 
-<a href="http://github.com/drewlesueur/flickr-url-gettr">source</a>
 </body>
 </html>
