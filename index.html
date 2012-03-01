@@ -50,7 +50,7 @@ Thumbs.addScope({
 
 onFlickrId * flickrid
   flickrId EncodeURIComponent flickrid
-  url $ http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=658104b831aab45aaa5f81bd74896a5b&user_id=$flickrid&format=json
+  url $ http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0b2f9ab880978786e13562af1db33ac9&user_id=$flickrid&format=json
   script Document.createElement $script
   script.src url
   Document.body.appendChild script
@@ -63,7 +63,7 @@ addPhoto * title url
   br Document.createElement $br
 
   a Document.createElement $a
-  a.href $ url
+  a.href url
   a.innerHTML title
 
   Document.body.appendChild img
@@ -71,17 +71,11 @@ addPhoto * title url
   Document.body.appendChild a
   Document.body.appendChild hr
 
-
-
-
-
   img.src url
 
-  Say url
 
 OnFlickr * stuff
   photos stuff.photos.photo
-  Say photos
   photos Slice photos 0 10
   Loop photos * photo
     title photo.title
@@ -93,28 +87,23 @@ OnFlickr * stuff
     AddPhoto title $ http://farm$farm.staticflickr.com/$server/$idSecret.jpg
 
 
-
 flickrid Load $flickrid
-
-Say $ The flickr id is $flickrid
 
 If
   > flickrid
   > OnFlickrId flickrid
-  > OnFlickrId $37757983@N07
+  > OnFlickrId $37757983@N06
 
 form Document.getElementById $form
 form.onsubmit * e
   E.preventDefault
   input Document.getElementById $photostream
   value input.value
-  Say value
   value Replace value $http:// empty
   value Split value $photos/
   value value.1
   value Split value $/
   flickrid value.0
-  Say flickrid
   Save $flickrid flickrid
 
 
@@ -126,5 +115,7 @@ form.onsubmit * e
 <script>
 Thumbs.runScriptTags()
 </script>
+
+<a href="http://github.com/drewlesueur/flickr-url-gettr">source</a>
 </body>
 </html>
